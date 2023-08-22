@@ -1,30 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using pro.Models;
-using pro.DTOs;
-using pro.Data;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using pro.Data;
+using pro.DTOs.Inside;
+using pro.Models;
+using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace pro.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ApplicantController : ControllerBase
+    public class EducationController : ControllerBase
     {
         private readonly Context _context;
         private readonly UserManager<User> _userManager; // Add this line to include UserManager
 
-        public ApplicantController(Context context, UserManager<User> userManager) // Add UserManager to the constructor
+        public EducationController(Context context, UserManager<User> userManager) // Add UserManager to the constructor
         {
             _context = context;
             _userManager = userManager; // Assign UserManager in the constructor
         }
 
         [Authorize]
-        [HttpPost]
-        public async Task<ActionResult<Applicant>> CreateApplicantForUser(ApplicantDTO applicantDto)
+        [HttpPost("app")]
+        public async Task<ActionResult<Education>> CreateApplicantForUser(EducationDTO educationDTO)
         {
             // Get the authenticated user's UserId from the ClaimsPrincipal
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -37,29 +39,28 @@ namespace pro.Controllers
             }
 
             // Create a new Applicant
-            var newApplicant = new Applicant
+            var newEducation = new Education
             {
                 UserId = userId,
-                Title = applicantDto.Title,
-                Dob = applicantDto.Dob,
-                Gender = applicantDto.Gender,
-                PhoneNo = applicantDto.PhoneNo,
-                Email = applicantDto.Email,
-                Address = applicantDto.Address,
-                Street = applicantDto.Street,
-                City = applicantDto.City,
-                State = applicantDto.State,
-                Zip = applicantDto.Zip,
-                Country = applicantDto.Country,
+                CurrentStatus=educationDTO.CurrentStatus,
+                Qulification= educationDTO.Qulification,
+                InsituteName= educationDTO.InsituteName,
+                Yearattained=educationDTO.Yearattained,
+                FieldOfStudy=educationDTO.FieldOfStudy,
+                SoftSkills=educationDTO.SoftSkills,
+                HardSkills=educationDTO.HardSkills,
+                Languages =educationDTO.Languages,
+
             };
 
             // Associate the new Applicant with the User
-            user.Applicant = newApplicant;
+            user.Educations = new List<Education> { newEducation };
+
 
             // Save changes to the database
             await _context.SaveChangesAsync();
 
-            return Ok(newApplicant);
+            return Ok(newEducation);
         }
     }
 }

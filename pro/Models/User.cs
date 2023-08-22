@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System;
+using System.Collections.Generic;
 
 namespace pro.Models
 {
@@ -14,5 +15,8 @@ namespace pro.Models
         public string Provider { get; set; }
 
         public Applicant Applicant { get; set; }
+
+        public List<Education> Educations { get; set; }
+        public List<Resume> Resumes { get; set; }
     }
 }
