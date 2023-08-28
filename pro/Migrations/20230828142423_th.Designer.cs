@@ -12,7 +12,7 @@ using pro.Data;
 namespace pro.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230824080417_th")]
+    [Migration("20230828142423_th")]
     partial class th
     {
         /// <inheritdoc />
@@ -267,6 +267,9 @@ namespace pro.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -275,7 +278,9 @@ namespace pro.Migrations
 
                     b.HasKey("Company_ID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Companies");
                 });
@@ -574,7 +579,7 @@ namespace pro.Migrations
                         .IsRequired();
 
                     b.HasOne("pro.Models.User", "User")
-                        .WithMany()
+                        .WithMany("DepartmentUsers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -656,8 +661,8 @@ namespace pro.Migrations
             modelBuilder.Entity("pro.Models.Company", b =>
                 {
                     b.HasOne("pro.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("Company")
+                        .HasForeignKey("pro.Models.Company", "UserId");
 
                     b.Navigation("User");
                 });
@@ -730,6 +735,10 @@ namespace pro.Migrations
             modelBuilder.Entity("pro.Models.User", b =>
                 {
                     b.Navigation("Applicant");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("DepartmentUsers");
 
                     b.Navigation("Educations");
 

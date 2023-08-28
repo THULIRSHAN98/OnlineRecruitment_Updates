@@ -261,6 +261,7 @@ namespace pro.Migrations
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -467,7 +468,9 @@ namespace pro.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_UserId",
                 table: "Companies",
-                column: "UserId");
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DepartmentUsers_DepartmentID",
