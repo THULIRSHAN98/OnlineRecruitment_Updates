@@ -18,7 +18,7 @@ namespace pro.Controllers.Admin
         private readonly Context _context;
        
 
-        public DepartmentController(Context context, UserManager<User> userManager) // Add UserManager to the constructor
+        public DepartmentController(Context context) // Add UserManager to the constructor
         {
             _context = context;
            
@@ -36,7 +36,8 @@ namespace pro.Controllers.Admin
             var newDepartment = new Department
             {
 
-                DepartmentName = departmentDTO.DepartmentName,
+               DepartmentID=departmentDTO.DepartmentID,
+               DepartmentName=departmentDTO.DepartmentName,
 
 
             };

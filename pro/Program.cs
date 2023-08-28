@@ -13,6 +13,7 @@ using pro.Models;
 using System;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +79,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+
+
 builder.Services.AddAuthorization(opt =>
 {
     opt.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
@@ -88,14 +91,36 @@ builder.Services.AddAuthorization(opt =>
 
     opt.AddPolicy("AdminEmailPolicy", policy => policy.RequireClaim(ClaimTypes.Email, "admin@example.com"));
 });
+
+
+// Configure JSON serialization options
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+
+// Configure the HTTP request pipeline.
+app.UseCors(builder =>
+{
+    builder.WithOrigins("http://localhost:3000")
+           .AllowAnyHeader()
+           .AllowAnyMethod()
+           .AllowCredentials();
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 
 app.UseHttpsRedirection();
 

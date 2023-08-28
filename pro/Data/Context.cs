@@ -22,8 +22,21 @@ namespace pro.Data
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<Resume> Resumes { get; set; }
         public DbSet<Skill> Skills { get; set; }
-        public DbSet<Skill> Skilluser { get; set; }
+        public DbSet<SkillUser> SkillUsers { get; set; }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Define DepartmentUser primary key
+            modelBuilder.Entity<DepartmentUser>()
+                .HasKey(d => new { d.UserId, d.DepartmentID }); // Composite primary key
+
+            // Define SkillUser primary key
+            modelBuilder.Entity<SkillUser>()
+                .HasKey(s => new { s.UserId, s.Skillid }); // Composite primary key
+        }
 
 
 

@@ -19,14 +19,10 @@ namespace pro.Models
         public string InsituteName { get; set; }
         public string Yearattained { get; set; }
 
-        public string FieldOfStudy { get; set; }
-        public string SoftSkills { get; set; }
-        public string HardSkills { get; set; }
-        public string Languages { get; set; }
-
         [JsonIgnore]
         public User User { get; set; }
 
 
     }
 }
+

@@ -1,7 +1,10 @@
-﻿namespace pro.DTOs.Inside
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace pro.DTOs.Inside
 {
     public class DepartmentUserDTO
     {
-        public string DepartmentName { get; set; }
+        [Required]
+        public int DepartmentID { get; set; }
     }
 }

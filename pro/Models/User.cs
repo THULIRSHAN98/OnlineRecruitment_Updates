@@ -18,5 +18,7 @@ namespace pro.Models
 
         public List<Education> Educations { get; set; }
         public List<Resume> Resumes { get; set; }
+        public List<SkillUser> SkillUsers { get; set; }
+        public List<DepartmentUser> DepartmentUsers { get; set; }
     }
 }
