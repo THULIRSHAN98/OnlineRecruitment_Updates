@@ -685,7 +685,7 @@ namespace pro.Migrations
             modelBuilder.Entity("pro.Models.JobApplication", b =>
                 {
                     b.HasOne("pro.Models.User", "User")
-                        .WithMany()
+                        .WithMany("JobApplications")
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
@@ -738,6 +738,8 @@ namespace pro.Migrations
                     b.Navigation("DepartmentUsers");
 
                     b.Navigation("Educations");
+
+                    b.Navigation("JobApplications");
 
                     b.Navigation("Resumes");
 

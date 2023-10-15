@@ -24,6 +24,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 // Add services to the container.
 
 
@@ -40,6 +41,7 @@ builder.Services.AddDbContext<Context>(options =>
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<ContextSeedService>();
+builder.Services.AddScoped<IManageImage, ManageImage>();
 
 builder.Services.AddIdentityCore<User>(options =>
 {

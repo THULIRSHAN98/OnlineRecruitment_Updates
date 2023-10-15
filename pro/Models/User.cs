@@ -22,5 +22,7 @@ namespace pro.Models
         public List<DepartmentUser> DepartmentUsers { get; set; }
 
         public Company Company { get; set; }
+
+        public List<JobApplication> JobApplications { get; set; }
     }
 }

@@ -15,8 +15,6 @@ namespace pro.Models
         [Required]
         public string SkillName { get; set; }
 
-
-        
         public List<SkillUser> SkillUsers { get; set; }
 
 

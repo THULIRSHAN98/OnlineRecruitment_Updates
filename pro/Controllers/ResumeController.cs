@@ -58,8 +58,6 @@ namespace pro.Controllers
                     FileName = fileName,
                     FilePath = filePath,
 
-
-
                 };
 
                 // Associate the new Resume with the User
